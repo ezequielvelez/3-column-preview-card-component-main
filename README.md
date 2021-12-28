@@ -150,7 +150,7 @@ Por último, pero no menos importante, se enfrentaba el problema de las proporci
 
 .cards {
     min-height: 60vh;
-    width: 55%;
+    width: 65%;
     min-width: 300px;
     border-radius: 8px;
 }
