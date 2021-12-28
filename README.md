@@ -1,6 +1,5 @@
 # Frontend Mentor - 3-column preview card component solution
 
-------
 
 Esta es una solución al "Desafío del Componente principal de la tarjeta de vista previa de 3 columna en Frontend Mentor" (https://www.frontendmentor.io/challenges)
 
