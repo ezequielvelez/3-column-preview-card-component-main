@@ -1,92 +1,219 @@
-# Frontend Mentor - 3-column preview card component
+# Frontend Mentor - 3-column preview card component solution
 
-![Design preview for the 3-column preview card component coding challenge](./design/desktop-preview.jpg)
+------
 
-## Welcome! 👋
 
-Thanks for checking out this front-end coding challenge.
 
-[Frontend Mentor](https://www.frontendmentor.io) challenges help you improve your coding skills by building realistic projects.
+## Table of contents
 
-**To do this challenge, you need a basic understanding of HTML, CSS and JavaScript.**
+- Descripción general
+  - El desafío
+  - Links
+- Mi proceso
+  - Construido con
+  - Que aprendí
+  - Desarrollo continuo
+  - Recursos útiles
+- Autor
 
-## The challenge
+------
 
-Your challenge is to build out this 3-column preview card component and get it looking as close to the design as possible.
+## Descripción general
 
-You can use any tools you like to help you complete the challenge. So if you've got something you'd like to practice, feel free to give it a go.
+### El desafío
 
-Your users should be able to:
+Los usuarios deben poder:
 
-- View the optimal layout depending on their device's screen size
-- See hover states for interactive elements
+- Ver el diseño óptimos según el tamaño de pantalla
+- Ver estados de desplazamientos para elementos interactivos
 
-Want some support on the challenge? [Join our Slack community](https://www.frontendmentor.io/slack) and ask questions in the **#help** channel.
+### Links
 
-## Where to find everything
+- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
 
-Your task is to build out the project to the designs inside the `/design` folder. You will find both a mobile and a desktop version of the design.
+## Mi proceso
 
-The designs are in JPG static format. Using JPGs will mean that you'll need to use your best judgment for styles such as `font-size`, `padding` and `margin`.
+### Contruido con
 
-If you would like the design files (we provide Sketch & Figma versions) to inspect the design in more detail, you can [subscribe as a PRO member](https://www.frontendmentor.io/pro).
+- Marcado semántico HTML5
+- CSS flexbox
+- Responsive design
+- Media Queries
+- Desktop first
+- Medidas relativas al contenedor (%) y relativas al viewport (vh)
+- Medidas relativas a la fuente en pixeles (rem y em)
+- Metodología BEM
 
-You will find all the required assets in the `/images` folder. The assets are already optimized.
+### Que aprendí
 
-There is also a `style-guide.md` file containing the information you'll need, such as color palette and fonts.
+ El desafío presentaba un diseño de tres columnas dónde debía de presentarse en tamaño de escritorio y adaptarse a la vista de mobil. En un principio decidí trabajarlo con CSS grid, pero, al ahondar en la teoría de los mismos he entendido que el CSS grid está pensado para construcciones bidimensionales, es decir, filas  y columnas. SIn embargo, para en este caso, necesitaba un diseño unidemensional cómo CSS flexbox, es decir, filas o columnas. En efecto, he decido trabajar con este último y aprovechar los anchos mínimos y el flex wrap para convertir de filas a columnas cuándo la ventana del navegador comience a hacerse más pequeña y obtener, en efecto, el diseño responsive.
 
-## Building your project
+```css
+.cards {
+    display: flex;
+    flex-flow: row wrap;
+}
+```
 
-Feel free to use any workflow that you feel comfortable with. Below is a suggested process, but do not feel like you need to follow these steps:
+Establecí un alto mínimo de 100vh para el body con su respectivo posición relativa para dejar al footer siempre abajo con una posición absoluta y un bottom 0. Luego construí un alto fijo para el contenedor de 60vh con sus respectivo márgenes para que todo el proyecto se encuentre en ese 100% del alto del viewport. El problema fue que cuándo llevaba el tamaño de la ventana a vista mobil, el contenido desbordaba y el footer se rompía. Luego de pensar el problema me he dado cuenta que necesitaba hacer dos cosas: la primera era no establecer un alto fijo en el contenedor, sino un alto mínimo, para que de esta manera alcance el mínimo de 60vh y provocar que el alto sea automático y siga creciendo según crezca en contenido. Lo segundo fue colocar un padding bottom al body para que siempre se respete la distancia entre el footer y la parte de abajo del contenedor y mantener la proporcionalidad sin que se rompa el diseño.
 
-1. Initialize your project as a public repository on [GitHub](https://github.com/). Creating a repo will make it easier to share your code with the community if you need help. If you're not sure how to do this, [have a read-through of this Try Git resource](https://try.github.io/).
-2. Configure your repository to publish your code to a web address. This will also be useful if you need some help during a challenge as you can share the URL for your project with your repo URL. There are a number of ways to do this, and we provide some recommendations below.
-3. Look through the designs to start planning out how you'll tackle the project. This step is crucial to help you think ahead for CSS classes to create reusable styles.
-4. Before adding any styles, structure your content with HTML. Writing your HTML first can help focus your attention on creating well-structured content.
-5. Write out the base styles for your project, including general content styles, such as `font-family` and `font-size`.
-6. Start adding styles to the top of the page and work down. Only move on to the next section once you're happy you've completed the area you're working on.
+```css
+.cards {
+    min-height: 60vh;
+}
 
-## Deploying your project
+  
+```
+```css
+body {
+    padding-top: 20vh;
+    padding-bottom: 20vh;
+}
+```
 
-As mentioned above, there are many ways to host your project for free. Our recommend hosts are:
+El tercer problema fue trabajar con los componentes internos de la tarjeta.  Se intentó trabajar sin flexbox en un principio y con medidas absolutas (píxeles), lo cuál no fue una idea conveniente para lograr el diseño responsivo. Asi que he decido trabajar con flexbox y un flex direction column. Para lograr que el botón esté siempre debajo y el ícono siempre arriba, opté por un justify content space between
 
-- [GitHub Pages](https://pages.github.com/)
-- [Vercel](https://vercel.com/)
-- [Netlify](https://www.netlify.com/)
+```css
+.card {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
 
-You can host your site using one of these solutions or any of our other trusted providers. [Read more about our recommended and trusted hosts](https://medium.com/frontend-mentor/frontend-mentor-trusted-hosting-providers-bf000dfebe).
+```
 
-## Create a custom `README.md`
+El problema era que el título y el párrafo quedaban centrado y no quería moverlos con position relative debido al llevar el diseño a mobile, al trabajar con ems y al hacerse más pequeño el tamaño, podía generar una desproporción. Por este motivo se colocó el ícono y el párrafo un un div y de esa manera se pegaban a la parte superior mientras el botón en la parte inferior y, a partir de allí trabajar con márgenes hasta quedar en posiciones aceptables.
 
-We strongly recommend overwriting this `README.md` with a custom one. We've provided a template inside the [`README-template.md`](./README-template.md) file in this starter code.
+```html
+<div class="cards">
+      <section class="card card--orange">
+        <div class="card__content">
+          <img src="#" alt="sedans icon" 	class="card__icon">
+          <h2 class="card__title">Sedans</h2>
+          <p class="card__paragraph">
+            Choose a sedan for its affordability and excellent fuel economy. Ideal for 				cruising in the city 
+            or on your next road trip.
+          </p>
+        </div>
+        <a href="#" class="card__button card__button--orange">Learn More</a>
+      </section>
+```
 
-The template provides a guide for what to add. A custom `README` will help you explain your project and reflect on your learnings. Please feel free to edit our template as much as you like.
+```css
+.card {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-grow: 1;
+    width: 33.33%;
+    min-width: 300px;
+    height: auto;
+    padding: 2.8em 4em 2.8em 2.8em;
+}
+```
 
-Once you've added your information to the template, delete this file and rename the `README-template.md` file to `README.md`. That will make it show up as your repository's README file.
+Aquí vemos, precisamente en la última linea, que hemos establecidos determinados paddings para que el space between no quede debajo rozando los bordes inferiores y superiores, y padding laterales para lograr el diseño lo más parecido posible
 
-## Submitting your solution
+```css
+.card__icon {
+    margin-bottom: 2.8em;
+}
 
-Submit your solution on the platform for the rest of the community to see. Follow our ["Complete guide to submitting solutions"](https://medium.com/frontend-mentor/a-complete-guide-to-submitting-solutions-on-frontend-mentor-ac6384162248) for tips on how to do this.
+.card__title {
+    margin: 0;
+}
 
-Remember, if you're looking for feedback on your solution, be sure to ask questions when submitting it. The more specific and detailed you are with your questions, the higher the chance you'll get valuable feedback from the community.
+.card__paragraph {
+    margin-top: 2.8em;
+}
+```
 
-## Sharing your solution
+Por último, pero no menos importante, se enfrentaba el problema de las proporciones al cambiar desde vista de escritorio hacia vista mobil. Luego de investigar, se decidió trabajar con Media Queries cón unos determinados píxeles en tamaño de fuente para la vista mobil y otros determinados píxeles para la vista de escritorio y, al trabajar con ems todo lo demás, el diseño se adaptaba excelentemente de una vista a la otra debido que los ems son relativos al tamaño de fuente y, este último cambiaba de acuerdo a las diferentes vistas y, en efecto, se modificaba proporcionalmente las proporciones y lograr el diseño resposivo.
 
-There are multiple places you can share your solution:
+```css
+@media screen and (min-width: 375px) {
+    body {
+        font-size: 15px;
+    }
+}
 
-1. Share your solution page in the **#finished-projects** channel of the [Slack community](https://www.frontendmentor.io/slack). 
-2. Tweet [@frontendmentor](https://twitter.com/frontendmentor) and mention **@frontendmentor**, including the repo and live URLs in the tweet. We'd love to take a look at what you've built and help share it around.
-3. Share your solution on other social channels like LinkedIn.
-4. Blog about your experience building your project. Writing about your workflow, technical choices, and talking through your code is a brilliant way to reinforce what you've learned. Great platforms to write on are [dev.to](https://dev.to/), [Hashnode](https://hashnode.com/), and [CodeNewbie](https://community.codenewbie.org/).
+@media screen and (min-width: 1440px) {
+    body {
+        font-size: 17px;
+    }
+```
 
-We provide templates to help you share your solution once you've submitted it on the platform. Please do edit them and include specific questions when you're looking for feedback.
+```css
 
-The more specific you are with your questions the more likely it is that another member of the community will give you feedback.
+.cards {
+    min-height: 60vh;
+    width: 55%;
+    min-width: 300px;
+    border-radius: 8px;
+}
 
-## Got feedback for us?
+.card {
+    width: 33.33%;
+    min-width: 300px;
+    height: auto;
+    padding: 2.8em 4em 2.8em 2.8em;
+}
 
-We love receiving feedback! We're always looking to improve our challenges and our platform. So if you have anything you'd like to mention, please email hi[at]frontendmentor[dot]io.
 
-This challenge is completely free. Please share it with anyone who will find it useful for practice.
+.card__icon {
+    margin-bottom: 2.8em;
+}
 
-**Have fun building!** 🚀
+.card__title {
+    margin: 0;
+    font-family: 'Big Shoulders Display', cursive;
+    font-size: 2.8rem;
+    font-weight: 700;
+}
+
+.card__paragraph {
+    margin-top: 2.8em;
+    line-height: 1.7em;
+}
+
+.card__button {
+    width: 10em;
+    height: 3.3em;
+    border-radius: 30px;
+
+}
+
+.attribution {
+    font-family: 'Big Shoulders Display', cursive;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+}
+
+```
+
+<!--Nota: Se han mostrado las declaraciones y propiedadaes relevantes de acuerdo a las explicaciones. Por lo tanto, las que no servían de ejemplo directo se han ocultado. Para más información ver el código completo en el repositorio.-->
+
+### Desarrollo continuo
+
+Me gustaría seguir perfeccionandome en las Media Queries y css flexbox. Además tengo la intención de internalizar de manera práctica css grid en proyectos posteriores y comenzar a trabajar con animaciones y transiciones. 
+
+Por otro lado sigo utilizando la metodología BEM, pero me gustaría conocer otras metodologías de arquitectura CSS además de la presente.
+
+He investigado y hay consejos sobre utilizar ems en los breakpoints para las Media Queries, he leído algunos artículos pero aún no logro entender el motivo. 
+
+### Recursos útiles
+
+- [https://www.youtube.com/watch?v=udGrXWeJp1Y&t=8990s](https://www.example.com) - Curso de arquitectura  CSS y responsive design. He entendido sobre las medidas relativas utilizadas para el diseño responsive, el uso de Media Queries y los breakpoints.
+- https://xitrus.es/blog/91/Adapta_el_texto_en_Responsive_Designs - En este artículo pude comprender la relación entre píxeles, rems y ems junto a las Media Queries.
+- [https://cloudfour.com/thinks/the-ems-have-it-proportional-media-queries-ftw/ - En este artículo he realizado la busqueda por entender por que utilizar ems en los breakpoints, aunque sigo sin entenderlo.
+- https://www.youtube.com/watch?v=eB02fMwnOCE&t=523s - Esta es una solución que encontré en YouTube dónde se consideró utilizar flexbox y jugar con el justify content y el aligns item en los componentes internos de la tarjeta.
+- https://www.youtube.com/watch?v=2Wy_MJPDfCw&t=1112s Esta solución me ayudó a enteneder la importancia del uso de los paddings y cómo podía relacionarlo con flexbox utilizando un justify content space between con un flex direction column y, de esa manera, dejar el botón simpre debajo pegado a la parte superior del padding bottom.
+
+## Autor
+
+- Website - [Ezequiel Vélez] (https://github.com/velzeq7)
+- Frontend Mentor - [@velzeq7] (https://www.frontendmentor.io/profile/velzeq7)
