@@ -18,8 +18,8 @@ body {
     position: relative;
     margin: 0;
     min-height: 100vh;
-    padding-top: 20vh;
-    padding-bottom: 20vh;
+    padding-top: 25vh;
+    padding-bottom: 25vh;
     font-family: 'Lexend Deca', sans-serif;
     font-size: 15px;
     font-weight: 400;
@@ -30,7 +30,7 @@ body {
 .cards {
     display: flex;
     flex-flow: row wrap;
-    min-height: 60vh;
+    min-height: 50vh;
     width: 65%;
     min-width: 300px;
     margin-left: auto;
@@ -48,7 +48,7 @@ body {
     width: 33.33%;
     min-width: 300px;
     height: auto;
-    padding: 2.8em 4em 2.8em 2.8em;
+    padding: 1.8em 3em 1.8em 1.8em;
 }
 
 .card--orange {
@@ -64,20 +64,20 @@ body {
 }
 
 .card__icon {
-    margin-bottom: 2.8em;
+    margin-bottom: 1.8em;
 }
 
 .card__title {
     margin: 0;
     font-family: 'Big Shoulders Display', cursive;
-    font-size: 2.8rem;
+    font-size: 1.8rem;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--very-light-gray);
 }
 
 .card__paragraph {
-    margin-top: 2.8em;
+    margin-top: 1.8em;
     line-height: 1.7em;
 }
 
